@@ -7,7 +7,7 @@ export class News extends Component {
 
   static defaultProps = {
     country: 'in',
-    pageSize: 4,
+    pageSize: 6,
     category: 'sports',
   }
 
@@ -55,11 +55,11 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3 ">
-        <h1 className='text-center'> News Hub - Top headlines</h1>
+        <h1 className='text-center'>{this.props.category === 'general' ? `News Hub - Top headlines` : `News Hub - Top ${this.props.category} headlines`}</h1>
         {this.state.loading && <Spinner />}
         <div className="row">
           {!this.state.loading && this.state.articles.map((element) => {
-            return <div className="col-md-3 my-2" key={element.url} >
+            return <div className="col-md-4 my-2" key={element.url} >
               <NewsItem title={element.title ? element.title.slice(0, 55) : "Default title"} description={element.description ? element.description.slice(0, 85) : "This is default description"} imageUrl={element.urlToImage ? element.urlToImage : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-AmaZLePcSE92A3ckosc6rcREKbJqHubKPg&usqp=CAU"} newsUrl={element.url} />
             </div>
           })}
