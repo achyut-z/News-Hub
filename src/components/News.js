@@ -51,18 +51,6 @@ export class News extends Component {
     await this.getNews(this.state.page);
   }
 
-  handlePrev = async () => {
-    const { page } = this.state;
-    await this.getNews(page - 1);
-    this.setState({ page: page - 1 });
-  }
-
-  handleNext = async () => {
-    const { page } = this.state;
-    await this.getNews(page + 1);
-    this.setState({ page: page + 1 });
-  }
-
   fetchMore = async () => {
     const nextPage = this.state.page + 1
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${nextPage}&pageSize=${this.props.pageSize}`;
@@ -80,7 +68,7 @@ export class News extends Component {
   render() {
     return (
       <>
-        <h1 className='text-center'>{this.props.category === 'general' ? `News Hub - Top Headlines` : `News Hub - Top ${this.capitalizeFirstLetter(this.props.category)} Headlines`}</h1>
+        <h1 className='text-center' style={{marginTop: '85px', marginBottom: '10px'}}>{this.props.category === 'general' ? `News Hub - Top Headlines` : `News Hub - Top ${this.capitalizeFirstLetter(this.props.category)} Headlines`}</h1>
         {this.state.loading && <Spinner />}
         <InfiniteScroll
           dataLength={this.state.articles.length}
@@ -103,10 +91,6 @@ export class News extends Component {
             </div>
           </div>
         </InfiniteScroll>
-        {/* <div className="container d-flex justify-content-between">
-        <button type="button" disabled={this.state.page === 1} onClick={this.handlePrev} className="btn btn-primary">&lArr; Previous</button>
-        <button type="button" disabled={this.state.page === Math.ceil(this.state.totalResults / this.props.pageSize)} onClick={this.handleNext} className="btn btn-primary">Next &rArr;</button>
-      </div> */}
       </>
     )
   }
